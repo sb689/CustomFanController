@@ -1,10 +1,7 @@
 package com.example.customfancontroller
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.*
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
@@ -26,6 +23,7 @@ class DrawingCanvas(context: Context?) : View(context) {
     private var currentX = 0f
     private var currentY = 0f
     private val touchTolerance = ViewConfiguration.get(context).scaledTouchSlop
+    private lateinit var frame: Rect
 
     private var path = Path()
     private val paint = Paint().apply {
@@ -49,11 +47,15 @@ class DrawingCanvas(context: Context?) : View(context) {
         extraBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         extraCanvas = Canvas(extraBitmap)
         extraCanvas.drawColor(backgroundColor)
+
+        val inset = 40
+        frame = Rect(inset, inset, width - inset, height - inset)
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         canvas?.drawBitmap(extraBitmap, 0f, 0f, null)
+        canvas?.drawRect(frame, paint)
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
