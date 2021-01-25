@@ -12,10 +12,18 @@
         <action
             android:id="@+id/action_fanControlFragment_to_drawingFragment"
             app:destination="@id/drawingFragment" />
+        <action
+            android:id="@+id/action_fanControlFragment_to_animationFragment"
+            app:destination="@id/animationFragment" />
     </fragment>
     <fragment
         android:id="@+id/drawingFragment"
         android:name="com.example.customfancontroller.DrawingFragment"
         android:label="fragment_drawing"
         tools:layout="@layout/fragment_drawing" />
+    <fragment
+        android:id="@+id/animationFragment"
+        android:name="com.example.customfancontroller.AnimationFragment"
+        android:label="fragment_animation"
+        tools:layout="@layout/fragment_animation" />
 </navigation>

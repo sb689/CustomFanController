@@ -24,6 +24,7 @@ class DrawingFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
+//        val drawingCanvasView = DrawingCanvas(context)
         val drawingCanvasView = DrawingCanvas(context)
         drawingCanvasView.windowVisibility
         drawingCanvasView.contentDescription = getString(R.string.canvasContentDescription)
