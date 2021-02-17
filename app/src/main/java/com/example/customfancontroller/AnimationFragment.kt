@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -122,6 +123,19 @@ class AnimationFragment : Fragment() {
     }
 
     private fun colorizer() {
+
+        val animator = ObjectAnimator.ofArgb(
+            star.parent,
+            "backgroundColor",
+            Color.BLACK,
+            Color.RED )
+
+
+        animator.setDuration(300)
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.disableViewDuringAnimation(colorizeButton)
+        animator.start()
     }
 
     private fun shower() {
