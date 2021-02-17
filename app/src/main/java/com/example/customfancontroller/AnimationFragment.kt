@@ -3,7 +3,9 @@ package com.example.customfancontroller
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -69,29 +71,54 @@ class AnimationFragment : Fragment() {
     }
 
     private fun rotater() {
+        Log.d("AnimationFragment", "rotate function called")
         val animator = ObjectAnimator.ofFloat(star, View.ROTATION, -360f, 0f)
         animator.duration = 1000
-        animator.addListener(object : AnimatorListenerAdapter(){
-
-            override fun onAnimationStart(animation: Animator?) {
-                rotateButton.isEnabled = false
-            }
-
-            override fun onAnimationEnd(animation: Animator?) {
-                rotateButton.isEnabled = true
-            }
-
-        })
+        animator.disableViewDuringAnimation(rotateButton)
         animator.start()
     }
 
     private fun translater() {
+
+        val animator = ObjectAnimator.ofFloat(star, View.TRANSLATION_X, 200f)
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.disableViewDuringAnimation(translateButton)
+        animator.start()
+    }
+
+    private fun ObjectAnimator.disableViewDuringAnimation(view: View)
+    {
+       addListener(object : AnimatorListenerAdapter(){
+           override fun onAnimationStart(animation: Animator?) {
+              view.isEnabled = false
+           }
+
+           override fun onAnimationEnd(animation: Animator?) {
+               view.isEnabled = true
+           }
+       })
     }
 
     private fun scaler() {
+
+        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 4f)
+        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 4f)
+        val animator = ObjectAnimator.ofPropertyValuesHolder(star, scaleX, scaleY)
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.disableViewDuringAnimation( scaleButton)
+        animator.start()
     }
 
+
     private fun fader() {
+
+        val animator = ObjectAnimator.ofFloat(star, View.ALPHA, 0f)
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.disableViewDuringAnimation(fadeButton)
+        animator.start()
     }
 
     private fun colorizer() {
